@@ -1,7 +1,7 @@
 import React from "react";
 import Search from "./Search";
 
-function Header( {search, setSearch} ) {
+function Header( {search, setSearch, setSortByLocation} ) {
   return (
     <header>
       <h1>
@@ -13,6 +13,7 @@ function Header( {search, setSearch} ) {
       <Search
       search={search}
       setSearch={setSearch}
+      setSortByLocation={setSortByLocation}
       />
     </header>
   );

@@ -6,11 +6,17 @@ function App() {
 
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState('')
+  const [sortByLocation, setSortByLocation] = useState(false);
 
   let itemsToDisplay = [...items]
   
   itemsToDisplay = itemsToDisplay.filter(item => item.description.toLowerCase().includes(search) || item.description.includes(search) || item.description.toUpperCase().includes(search))
   
+  if(sortByLocation) {
+    itemsToDisplay = itemsToDisplay.sort((a,b) => {
+      return a.location.localeCompare(b.location)
+    })
+  }
 
   useEffect(() => {
     fetch('http://localhost:6001/listings')
@@ -35,6 +41,7 @@ function App() {
       <Header 
       search={search}
       setSearch={setSearch}
+      setSortByLocation={setSortByLocation}
       />
       <ListingsContainer
       items={itemsToDisplay}
