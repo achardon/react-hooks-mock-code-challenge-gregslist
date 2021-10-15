@@ -10,7 +10,7 @@ function App() {
     fetch('http://localhost:6001/listings')
     .then(r => r.json())
     .then(data => {
-      setItems(data)
+      setItems((currentItems) => data)
     })
   }, [])
 
