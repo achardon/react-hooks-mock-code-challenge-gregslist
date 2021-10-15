@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function ListingCard( {item} ) {
+function ListingCard( {item, handleDelete} ) {
   
   const [like, setLike] = useState(false)
 
@@ -9,8 +9,6 @@ function ListingCard( {item} ) {
     setLike((currentLike) => !currentLike)
   }
 
-
-  
   return (
     <li className="card">
       <div className="image">
@@ -18,12 +16,6 @@ function ListingCard( {item} ) {
         <img src={item.image} alt={item.description} />
       </div>
       <div className="details">
-
-        {/* <button 
-        onClick={handleLike} */}
-        
-        {/* // >{like? '★' : '☆'}
-        // </button> */}
 
         {like ? (
           <button 
@@ -35,13 +27,22 @@ function ListingCard( {item} ) {
           className="emoji-button favorite">☆</button>
         )}
         
-        
         <strong>{item.description}</strong>
         <span> · {item.location}</span>
-        <button className="emoji-button delete">🗑</button>
+        <button 
+        onClick={() => handleDelete(item.id)}
+        className="emoji-button delete">🗑</button>
       </div>
     </li>
   );
 }
 
 export default ListingCard;
+
+
+// {
+//   "id": 5,
+//   "description": "wood",
+//   "image": "./images/wood.jpg",
+//   "location": "Greenpoint"
+// },

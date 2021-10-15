@@ -16,11 +16,22 @@ function App() {
 
   console.log(items)
 
+  function handleDelete(id) {
+    console.log(id)
+    fetch(`http://localhost:6001/listings/${id}`, {
+      method: 'DELETE'
+    })
+    .then(setItems((currentItems) => {
+      return items.filter(item => item.id !== id)
+    }))
+  }
+
   return (
     <div className="app">
       <Header />
       <ListingsContainer
       items={items}
+      handleDelete={handleDelete}
       />
     </div>
   );
