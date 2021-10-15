@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Header from "./Header";
 import ListingsContainer from "./ListingsContainer";
+import AddItemForm from "./AddItemForm";
 
 function App() {
 
@@ -9,6 +10,8 @@ function App() {
   const [sortByLocation, setSortByLocation] = useState(false);
 
   let itemsToDisplay = [...items]
+
+  // console.log(itemsToDisplay)
   
   itemsToDisplay = itemsToDisplay.filter(item => item.description.toLowerCase().includes(search) || item.description.includes(search) || item.description.toUpperCase().includes(search))
   
@@ -36,12 +39,31 @@ function App() {
     }))
   }
 
+  function onAddNewItem(newItem) {
+    fetch('http://localhost:6001/listings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newItem)
+    })
+    .then(r => r.json())
+    .then(data => {
+      setItems((currentItems) => [...currentItems, 
+        {...newItem, id: data.id}
+      ])
+    })    
+  }
+
   return (
     <div className="app">
       <Header 
       search={search}
       setSearch={setSearch}
       setSortByLocation={setSortByLocation}
+      />
+      <AddItemForm
+      onAddNewItem={onAddNewItem}
       />
       <ListingsContainer
       items={itemsToDisplay}
